@@ -102,7 +102,7 @@ mod test {
     #[test]
     fn get_text_test() {
         let mut path = std::path::PathBuf::new();
-        path.push("a.mobi");
+        path.push("samples/rust.mobi");
         let res = crate::load_file(path);
         match res {
             Ok(book) => {
@@ -123,7 +123,7 @@ mod test {
     #[test]
     fn get_author_test() {
         let mut path = std::path::PathBuf::new();
-        path.push("a.mobi");
+        path.push("samples/rust.mobi");
         let res = crate::load_file(path);
         match res {
             Ok(book) => {
@@ -140,7 +140,7 @@ mod test {
     #[test]
     fn get_title_test() {
         let mut path = std::path::PathBuf::new();
-        path.push("a.mobi");
+        path.push("samples/rust.mobi");
         let res = crate::load_file(path);
         match res {
             Ok(book) => {
@@ -165,7 +165,7 @@ mod test {
     #[test] 
     fn load_file_existing() {
         let mut path = std::path::PathBuf::new();
-        path.push("a.mobi");
+        path.push("samples/rust.mobi");
         let res = crate::load_file(path);
         match res {
             Ok(_) => assert!(true),
