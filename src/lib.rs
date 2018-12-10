@@ -35,16 +35,16 @@ pub fn load_file(path : std::path::PathBuf) -> Result<MobiData,ff::MOBI_RET> {
     }
 }
 
-pub fn get_title(book: MobiData) -> Result<String,String> {
+pub fn get_title(book: &MobiData) -> Result<String,String> {
     get_meta(book,ff::mobi_meta_get_title) 
 }
 
-pub fn get_author(book: MobiData) -> Result<String,String> {
+pub fn get_author(book: &MobiData) -> Result<String,String> {
     get_meta(book,ff::mobi_meta_get_author) 
 }
 
 
-fn get_meta(book: MobiData, f: unsafe extern "C" fn(*const ff::MOBIData) -> *mut std::os::raw::c_char) -> Result<String, String> {
+fn get_meta(book: &MobiData, f: unsafe extern "C" fn(*const ff::MOBIData) -> *mut std::os::raw::c_char) -> Result<String, String> {
     unsafe {    
         let ptr = f(book.ptr);
         if ptr.is_null() {
@@ -59,7 +59,7 @@ fn get_meta(book: MobiData, f: unsafe extern "C" fn(*const ff::MOBIData) -> *mut
 }
 
 
-pub fn get_text(book: MobiData) -> Result<String, String> {
+pub fn get_text(book: &MobiData) -> Result<String, String> {
     unsafe {
         let max_size = ff::mobi_get_text_maxsize(book.ptr);
         let text_ptr = libc::malloc(std::mem::size_of::<i8>() * max_size) as *mut i8;
@@ -106,7 +106,7 @@ mod test {
         let res = crate::load_file(path);
         match res {
             Ok(book) => {
-                match crate::get_text(book) {
+                match crate::get_text(&book) {
                     Ok(text) => {
                         assert!(text.starts_with("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"));
                         assert!(text.contains("Finally, we’ll talk about Cargo"));
@@ -127,7 +127,7 @@ mod test {
         let res = crate::load_file(path);
         match res {
             Ok(book) => {
-                match crate::get_author(book) {
+                match crate::get_author(&book) {
                     Ok(author) => assert_eq!(String::from("The Rust Team"),author),
                     Err(_) => assert!(false),
                 }
@@ -144,7 +144,7 @@ mod test {
         let res = crate::load_file(path);
         match res {
             Ok(book) => {
-                match crate::get_title(book) {
+                match crate::get_title(&book) {
                     Ok(title) => assert_eq!(String::from("The Rust Programming Language"),title),
                     Err(_) => assert!(false),
                 }
