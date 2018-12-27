@@ -43,6 +43,49 @@ pub fn get_author(book: &MobiData) -> Result<String,String> {
     get_meta(book,ff::mobi_meta_get_author) 
 }
 
+pub fn get_publisher(book: &MobiData) -> Result<String,String> {
+    get_meta(book, ff::mobi_meta_get_publisher)
+}
+
+pub fn get_imprint(book: &MobiData) -> Result<String,String> {
+    get_meta(book, ff::mobi_meta_get_imprint)
+}
+
+pub fn get_description(book: &MobiData) -> Result<String,String> {
+    get_meta(book, ff::mobi_meta_get_description)
+}
+
+pub fn get_isbn(book: &MobiData) -> Result<String,String> {
+    get_meta(book, ff::mobi_meta_get_isbn)
+}
+
+pub fn get_subject(book: &MobiData) -> Result<String,String> {
+    get_meta(book, ff::mobi_meta_get_subject)
+}
+
+pub fn get_publish_date(book: &MobiData) -> Result<String,String> {
+    get_meta(book, ff::mobi_meta_get_publishdate)
+}
+
+pub fn get_review(book: &MobiData) -> Result<String,String> {
+    get_meta(book, ff::mobi_meta_get_review)
+}
+
+pub fn get_contributer(book: &MobiData) -> Result<String,String> {
+    get_meta(book, ff::mobi_meta_get_contributor)
+}
+
+pub fn get_copyright(book: &MobiData) -> Result<String,String> {
+    get_meta(book, ff::mobi_meta_get_copyright)
+}
+
+pub fn get_asin(book: &MobiData) -> Result<String,String> {
+    get_meta(book, ff::mobi_meta_get_asin)
+}
+
+pub fn get_language(book: &MobiData) -> Result<String,String> {
+    get_meta(book, ff::mobi_meta_get_language)
+}
 
 fn get_meta(book: &MobiData, f: unsafe extern "C" fn(*const ff::MOBIData) -> *mut std::os::raw::c_char) -> Result<String, String> {
     unsafe {    
